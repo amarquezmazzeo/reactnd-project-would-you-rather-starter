@@ -1,0 +1,166 @@
+.App {
+  text-align: center;
+  
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.avatar > img {
+  border-radius: 50%;
+}
+
+.submit-poll {
+  display: inline-block;
+  border: none;
+  padding: 3pt 10pt;
+  margin: 20pt 0pt;
+}
+
+
+/****************************
+         DASHBOARD
+****************************/
+
+.custom-button {
+  width: 40%;
+  height: 65px;
+  background-color: #abafb5;
+  margin: 2pt;
+  border: 0;
+}
+
+.custom-button:hover {
+  background-color: #828a90;
+}
+
+.active {
+  background-color: #282c34;
+  color: white
+}
+
+.active:hover {
+  background-color: #282c34;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/****************************
+         QUESTION
+****************************/
+
+.question-option {
+  padding: 0 0;
+  width: 25%;
+  min-height: 50pt;
+  background-color: #494d49;
+  color: white;
+  border: 0;
+  border-radius: 2pt;
+  margin: 3pt;
+  display: inline-block;
+}
+
+.question-option-active {
+  background-color: #45724b;
+}
+
+.vote {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.option {
+  width: 25%;
+  margin: 15pt;
+  padding: 0 8pt 30pt 8pt;
+  background-color: #abafb5;
+  border-radius: 8pt;
+}
+
+.winner {
+  background-color: #73a87b;
+}
+
+.vote > div:before 
+{
+  position: relative;
+  display: block;
+  content: "Your vote!";
+  shape-outside: circle();
+  clip-path:circle();
+  background-color: rgba(0,0,0,0);
+  color: rgba(0,0,0,0);
+  right:-52%;
+  top: -20px;
+  font-size: x-small;
+  padding: 16pt;
+  transform: rotate(25deg);
+  margin: 0;
+}
+
+.vote > div.active-vote:before {
+  position: relative;
+  display: block;
+  content: "Your vote!";
+  shape-outside: circle();
+  clip-path:circle();
+  background-color: rgb(10, 22, 15);
+  color: white;
+  right:-52%;
+  top: -20px;
+  font-size: x-small;
+  padding: 16pt;
+  transform: rotate(25deg);
+  margin: 0;
+}
+
+/****************************
+         QUESTION
+****************************/
+
+nav {
+  padding: 20pt 0;
+  background-color: #282c34;
+  color: white;
+  margin-bottom: 20pt;
+}
+
+nav a {
+  color: white;
+  
+}
+
+nav a:visited {
+  color:rgb(254, 230, 255)
+}
+
+nav a:hover {
+  color:rgb(197, 205, 250) 
+}
+
+.nav-links {
+  display: flex;
+  margin: 0 50pt;
+}
+
+.nav-links > * {
+  padding: 0 20pt;
+}
