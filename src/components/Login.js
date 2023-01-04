@@ -2,6 +2,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { setAuthedUser } from '../actions/authedUser'
 import { Navigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router'
+
+const withRouter = (WrappedComponent) => (props) => {
+  const params = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  return (
+    <WrappedComponent
+      {...props}
+      params={params}
+      navigate={navigate}
+      location={location}
+    />
+  )
+}
 
 class Login extends Component {
   state = {
@@ -31,7 +47,11 @@ class Login extends Component {
       </option>
     ))
     if (this.state.authed === true) {
-      return <Navigate to='/' />
+      return this.props.location ? (
+        <Navigate to={this.props.location} />
+      ) : (
+        <Navigate to='/' />
+      )
     }
     return (
       <div className='login-component'>
@@ -55,10 +75,12 @@ class Login extends Component {
   }
 }
 
-function mapStateToProps({ users }) {
+function mapStateToProps({ users }, props) {
   return {
     usernames: Object.keys(users),
+    location: props.location.state ? props.location.state.data : null,
   }
 }
 
-export default connect(mapStateToProps)(Login)
+export default withRouter(connect(mapStateToProps)(Login))
+// export default connect(mapStateToProps)(Login)

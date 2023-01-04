@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { useParams, useNavigate } from 'react-router'
+import { useParams, useNavigate, useLocation } from 'react-router'
 import { handleSubmitVote } from '../actions/questions'
 import { Navigate } from 'react-router-dom'
 import NotFound from './NotFound'
@@ -10,10 +10,17 @@ import { formatQuestion } from '../utils/helpers'
 const withRouter = (WrappedComponent) => (props) => {
   const params = useParams()
   const navigate = useNavigate()
+  const location = useLocation()
 
-  return <WrappedComponent {...props} params={params} navigate={navigate} />
+  return (
+    <WrappedComponent
+      {...props}
+      params={params}
+      navigate={navigate}
+      location={location}
+    />
+  )
 }
-
 class Question extends Component {
   state = {
     option: '',
@@ -48,7 +55,9 @@ class Question extends Component {
 
   render() {
     if (!this.props.authedUser) {
-      return <Navigate to='/login' />
+      return (
+        <Navigate to='/login' state={{ data: this.props.location.pathname }} />
+      )
     }
     if (!this.props.question) {
       return <NotFound />
@@ -155,6 +164,7 @@ function mapStateToProps({ questions, users, authedUser }, props) {
   return {
     authedUser,
     question: question ? formatQuestion(question, author, authedUser) : null,
+    location: props.location,
   }
 }
 

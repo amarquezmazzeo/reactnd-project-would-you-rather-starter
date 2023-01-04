@@ -2,6 +2,22 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { handleAddQuestion } from '../actions/questions'
+import { useLocation, useParams, useNavigate } from 'react-router'
+
+const withRouter = (WrappedComponent) => (props) => {
+  const params = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  return (
+    <WrappedComponent
+      {...props}
+      params={params}
+      navigate={navigate}
+      location={location}
+    />
+  )
+}
 
 class NewQuestion extends Component {
   state = {
@@ -40,7 +56,9 @@ class NewQuestion extends Component {
 
   render() {
     if (!this.props.authedUser) {
-      return <Navigate to='/login' />
+      return (
+        <Navigate to='/login' state={{ data: this.props.location.pathname }} />
+      )
     }
     if (this.state.questionSubmitted === true) {
       return <Navigate to='/' />
@@ -79,10 +97,11 @@ class NewQuestion extends Component {
   }
 }
 
-function mapStateToProps({ authedUser }) {
+function mapStateToProps({ authedUser }, props) {
   return {
     authedUser,
+    location: props.location,
   }
 }
 
-export default connect(mapStateToProps)(NewQuestion)
+export default withRouter(connect(mapStateToProps)(NewQuestion))

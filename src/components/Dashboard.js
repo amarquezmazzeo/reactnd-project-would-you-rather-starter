@@ -3,6 +3,22 @@ import QuestionPreview from './QuestionPreview'
 import { connect } from 'react-redux'
 import '../App.css'
 import { Navigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router'
+
+const withRouter = (WrappedComponent) => (props) => {
+  const params = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  return (
+    <WrappedComponent
+      {...props}
+      params={params}
+      navigate={navigate}
+      location={location}
+    />
+  )
+}
 
 class Dashboard extends Component {
   state = {
@@ -18,7 +34,9 @@ class Dashboard extends Component {
 
   render() {
     if (!this.props.authedUser) {
-      return <Navigate to='/login' />
+      return (
+        <Navigate to='/login' state={{ data: this.props.location.pathname }} />
+      )
     }
 
     const questionIDs = Object.keys(this.props.questionVotes).filter(
@@ -71,7 +89,7 @@ function questionPlusIDs(ids, questions, user) {
   return result
 }
 
-function mapStateToProps({ questions, authedUser }) {
+function mapStateToProps({ questions, authedUser }, props) {
   const questionIDs = Object.keys(questions).sort(
     (a, b) => questions[b].timestamp - questions[a].timestamp
   )
@@ -80,7 +98,8 @@ function mapStateToProps({ questions, authedUser }) {
     questionVotes: questionPlusIDs(questionIDs, questions, authedUser),
     questions: {},
     authedUser: authedUser,
+    location: props.location,
   }
 }
 
-export default connect(mapStateToProps)(Dashboard)
+export default withRouter(connect(mapStateToProps)(Dashboard))

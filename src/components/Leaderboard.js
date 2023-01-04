@@ -3,11 +3,29 @@ import UserPreview from './UserPreview'
 import { connect } from 'react-redux'
 import '../App.css'
 import { Navigate } from 'react-router-dom'
+import { useLocation, useParams, useNavigate } from 'react-router'
+
+const withRouter = (WrappedComponent) => (props) => {
+  const params = useParams()
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  return (
+    <WrappedComponent
+      {...props}
+      params={params}
+      navigate={navigate}
+      location={location}
+    />
+  )
+}
 
 class Leaderboard extends Component {
   render() {
     if (!this.props.authedUser) {
-      return <Navigate to='/login' />
+      return (
+        <Navigate to='/login' state={{ data: this.props.location.pathname }} />
+      )
     }
 
     return (
@@ -25,7 +43,7 @@ class Leaderboard extends Component {
   }
 }
 
-function mapStateToProps({ users, authedUser }) {
+function mapStateToProps({ users, authedUser }, props) {
   const userIDs = Object.keys(users).sort(
     (a, b) =>
       users[b].questions.length +
@@ -37,7 +55,8 @@ function mapStateToProps({ users, authedUser }) {
   return {
     userIDs,
     authedUser,
+    location: props.location,
   }
 }
 
-export default connect(mapStateToProps)(Leaderboard)
+export default withRouter(connect(mapStateToProps)(Leaderboard))
