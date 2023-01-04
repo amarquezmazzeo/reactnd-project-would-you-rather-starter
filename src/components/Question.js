@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { useParams, useNavigate } from 'react-router'
 import { handleSubmitVote } from '../actions/questions'
-// import { Navigate } from 'react-router-dom'
+import { Navigate } from 'react-router-dom'
 
 import { formatQuestion } from '../utils/helpers'
 
@@ -52,6 +52,9 @@ class Question extends Component {
     // if (this.state.toHome === true) {
     //     return <Navigate to='/question/xj352vofupe1dqz9emx13r'/>
     // }
+    if (!this.props.authedUser) {
+      return <Navigate to='/login' />
+    }
     return (
       <div className='question'>
         <div className='top-bar'>

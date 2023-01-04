@@ -7,3 +7,7 @@ Using the provided starter code, I built a React/Redux front end for the applica
 # Functionality
 
 The user is able to 1) log in into the user, 2) add new questions consisting in two option polls, and 3) vote on existing questions.
+
+# Installing and Running
+
+Open the main directory in the terminal and run `npm install`, followed by `npm run`

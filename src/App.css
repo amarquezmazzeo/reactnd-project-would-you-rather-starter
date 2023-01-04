@@ -141,11 +141,14 @@ nav {
   background-color: #282c34;
   color: white;
   margin-bottom: 20pt;
+  display: flex;
+  justify-content: space-between;
+
 }
 
 nav a {
   color: white;
-  
+ 
 }
 
 nav a:visited {
@@ -158,9 +161,70 @@ nav a:hover {
 
 .nav-links {
   display: flex;
-  margin: 0 50pt;
+  margin: 0 8vw;
 }
 
 .nav-links > * {
   padding: 0 20pt;
+}
+
+.login-info {
+  display: flex;
+  margin: 0 8vw;
+}
+
+.login-info > * {
+  padding: 0 20pt;
+  margin: 0;
+}
+
+.login-info > button {
+  padding: 0 20pt;
+  margin: 0;
+  border: none
+  
+}
+
+nav button {
+  color: white;
+  background-color: inherit;
+  font: inherit;
+  text-decoration: underline;
+}
+
+nav button:visited {
+  color:rgb(254, 230, 255)
+}
+
+nav button:hover {
+  color:rgb(197, 205, 250) 
+}
+
+/****************************
+         LEADERBOARD
+****************************/
+
+.user-prev {
+  background-color: #cacfd6;
+  margin: 0 auto;
+  margin-bottom: 20pt;
+  max-width: 16vw;
+  border-radius: 20pt;
+  padding: 10px 30px;
+}
+
+.user-prev > h2 {
+  margin-top: 4pt;
+}
+
+
+.user-prev img {
+  width: 100px;
+  height: 100px;
+}
+
+.stats-flex {
+  display: flex;
+  justify-content:space-around;
+  margin: 0 2vw;
 }

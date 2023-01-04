@@ -5,6 +5,7 @@ import Login from './Login'
 import Dashboard from './Dashboard'
 import Question from './Question'
 import NewQuestion from './NewQuestion'
+import Leaderboard from './Leaderboard'
 import { handleInitialData } from '../actions/shared'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Nav from './Nav'
@@ -27,6 +28,7 @@ class App extends Component {
               element={!this.props.loading ? <Question /> : null}
             />
             <Route path='/new' element={<NewQuestion />} />
+            <Route path='/leaderboard' element={<Leaderboard />} />
           </Routes>
         </Router>
       </div>

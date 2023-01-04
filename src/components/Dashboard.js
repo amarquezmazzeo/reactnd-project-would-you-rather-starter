@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import QuestionPreview from './QuestionPreview'
 import { connect } from 'react-redux'
 import '../App.css'
-import questions from '../reducers/questions'
+import { Navigate } from 'react-router-dom'
 
 class Dashboard extends Component {
   state = {
@@ -17,6 +17,10 @@ class Dashboard extends Component {
   }
 
   render() {
+    if (!this.props.authedUser) {
+      return <Navigate to='/login' />
+    }
+
     const questionIDs = Object.keys(this.props.questionVotes).filter(
       (key) => this.props.questionVotes[key] === this.state.showAnswered
     )
@@ -75,6 +79,7 @@ function mapStateToProps({ questions, authedUser }) {
   return {
     questionVotes: questionPlusIDs(questionIDs, questions, authedUser),
     questions: {},
+    authedUser: authedUser,
   }
 }
 

@@ -3,8 +3,6 @@ import { connect } from 'react-redux'
 import { Navigate } from 'react-router-dom'
 import { handleAddQuestion } from '../actions/questions'
 
-import { formatQuestion } from '../utils/helpers'
-
 class NewQuestion extends Component {
   state = {
     optionOne: '',
@@ -23,7 +21,7 @@ class NewQuestion extends Component {
   handleSubmit = (e) => {
     e.preventDefault()
     const question = {
-      authedUser: this.props.authedUser.authedUser,
+      authedUser: this.props.authedUser,
       optionOneText: this.state.optionOne,
       optionTwoText: this.state.optionTwo,
     }
@@ -41,6 +39,9 @@ class NewQuestion extends Component {
   }
 
   render() {
+    if (!this.props.authedUser) {
+      return <Navigate to='/login' />
+    }
     if (this.state.questionSubmitted === true) {
       return <Navigate to='/' />
     }
@@ -57,6 +58,7 @@ class NewQuestion extends Component {
                 type='text'
                 value={this.state.optionOne}
                 name='optionOne'
+                placeholder='Option # 1'
                 onChange={this.handleChange}
               />
             </p>
@@ -65,6 +67,7 @@ class NewQuestion extends Component {
                 type='text'
                 value={this.state.optionTwo}
                 name='optionTwo'
+                placeholder='Option # 2'
                 onChange={this.handleChange}
               />
             </p>
@@ -76,7 +79,7 @@ class NewQuestion extends Component {
   }
 }
 
-function mapStateToProps(authedUser) {
+function mapStateToProps({ authedUser }) {
   return {
     authedUser,
   }
