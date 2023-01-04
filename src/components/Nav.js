@@ -14,7 +14,7 @@ class Nav extends Component {
       <nav className='nav'>
         <div className='nav-links'>
           <Link to='/'>Home</Link>
-          <Link to='/new'>New Question</Link>
+          <Link to='/add'>New Question</Link>
           <Link to='/leaderboard'>Leaderboard</Link>
         </div>
         {this.props.authedUser ? (

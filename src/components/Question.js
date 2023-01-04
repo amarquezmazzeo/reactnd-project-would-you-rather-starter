@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { useParams, useNavigate } from 'react-router'
 import { handleSubmitVote } from '../actions/questions'
 import { Navigate } from 'react-router-dom'
+import NotFound from './NotFound'
 
 import { formatQuestion } from '../utils/helpers'
 
@@ -46,15 +47,20 @@ class Question extends Component {
   }
 
   render() {
+    if (!this.props.authedUser) {
+      return <Navigate to='/login' />
+    }
+    if (!this.props.question) {
+      return <NotFound />
+    }
+
     const { name, textOne, textTwo, votesOne, votesTwo, avatar, vote } =
       this.props.question
     const totalVotes = votesOne + votesTwo
     // if (this.state.toHome === true) {
     //     return <Navigate to='/question/xj352vofupe1dqz9emx13r'/>
     // }
-    if (!this.props.authedUser) {
-      return <Navigate to='/login' />
-    }
+
     return (
       <div className='question'>
         <div className='top-bar'>
@@ -110,7 +116,9 @@ class Question extends Component {
                   <div className='details'>
                     <p>{textOne}</p>
                   </div>
-                  {/* <div className='bar'>{(votesOne / totalVotes) * 100}%</div> */}
+                  <div className='bar'>
+                    {((votesOne / totalVotes) * 100).toFixed(2)}%
+                  </div>
                   <p>
                     {votesOne} of {totalVotes} votes
                   </p>
@@ -123,7 +131,9 @@ class Question extends Component {
                   <div className='details'>
                     <p>{textTwo}</p>
                   </div>
-                  {/* <div className='bar'>{(votesTwo / totalVotes) * 100}%</div> */}
+                  <div className='bar'>
+                    {((votesTwo / totalVotes) * 100).toFixed(2)}%
+                  </div>
                   <p>
                     {votesTwo} of {totalVotes} votes
                   </p>
@@ -139,8 +149,8 @@ class Question extends Component {
 
 function mapStateToProps({ questions, users, authedUser }, props) {
   const { id } = props.params
-  const question = questions[id]
-  const author = users[question.author]
+  const question = questions[id] ? questions[id] : null
+  const author = question ? users[question.author] : null
 
   return {
     authedUser,
