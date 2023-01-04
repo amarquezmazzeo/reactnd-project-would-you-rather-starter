@@ -9,8 +9,9 @@ import NotFound from './NotFound'
 import { handleInitialData } from '../actions/shared'
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
 import Nav from './Nav'
+import { connect } from 'react-redux'
 
-export default class App extends Component {
+class App extends Component {
   componentDidMount() {
     this.props.dispatch(handleInitialData())
   }
@@ -33,3 +34,11 @@ export default class App extends Component {
     )
   }
 }
+
+function mapStateToProps({ authedUser }) {
+  return {
+    loading: authedUser === null,
+  }
+}
+
+export default connect(mapStateToProps)(App)
