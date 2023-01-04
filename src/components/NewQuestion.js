@@ -42,16 +42,17 @@ class NewQuestion extends Component {
       optionTwoText: this.state.optionTwo,
     }
 
-    this.props.dispatch(handleAddQuestion(question))
+    if (question.optionOneText !== '' && question.optionTwoText !== '') {
+      this.props.dispatch(handleAddQuestion(question))
 
-    this.setState({
-      optionOne: '',
-      optionTwo: '',
-      questionSubmitted: true,
-    })
-
-    // TODO: Handle errors (ie API failure)
-    // TODO: Prevent submit if options are blank
+      this.setState({
+        optionOne: '',
+        optionTwo: '',
+        questionSubmitted: true,
+      })
+    } else {
+      alert('You must input both options!')
+    }
   }
 
   render() {
